@@ -15,7 +15,22 @@
 	<script type="text/javascript" src="deps/underscore.js"></script>
 	<script type="text/javascript" src="deps/opt/jsv.js"></script>
 	<script type="text/javascript" src="lib/jsonform.js"></script>
+	<script src="https://surveyjs.azureedge.net/1.1.25/survey.jquery.min.js"></script>
 	<script type="text/javascript">
+		Survey.StylesManager.applyTheme("bootstrap");
+
+var surveyJSON = {"pages":[{"name":"page1","elements":[{"type":"text","name":"question3","title":"Claim Ticket Number"},{"type":"text","name":"question2","title":"Zipcode"},{"type":"rating","name":"question4","title":"Rate the wait time when dropping off your clothes: 1 being worst, 10 being best","rateMax":10,"minRateDescription":"Worst","maxRateDescription":"Best"},{"type":"rating","name":"question5","title":"Rate the wait time when picking up your clothes: 1 being worst, 10 being best","rateMax":10,"minRateDescription":"Worst","maxRateDescription":"Best"},{"type":"checkbox","name":"question6","title":"What services do you value from us?","choices":["Location","Turn Around Time","Cleanliness of my clothes","Prices","Same-Day Service","Can Dry Clean Anything","Tailor Services/Alterations"]},{"type":"text","name":"question7","title":"If we lost any items, what were they? "},{"type":"text","name":"question8","title":"Did we return all your items on item? If not, please list them here:"}]}]}
+
+function sendDataToServer(survey) {
+    //send Ajax request to your web server.
+    alert("The results are:" + JSON.stringify(survey.data));
+}
+
+var survey = new Survey.Model(surveyJSON);
+$("#surveyContainer").Survey({
+    model: survey,
+    onComplete: sendDataToServer
+});
 		$('form').jsonForm({
 			schema: {
  "pages": [
